@@ -5,18 +5,19 @@
  */
 package agendacontactos;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
  * @author Javier
  */
-public class AgendaContactos extends Application {
+public class AgendaContactos{
     
-    @Override
-    public void start(Stage primaryStage) {
-        
+    public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendaContactosPU");
+        EntityManager em = emf.createEntityManager();
     }
     
 }
