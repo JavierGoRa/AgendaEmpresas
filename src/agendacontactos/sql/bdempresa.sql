@@ -7,7 +7,7 @@
  * Author:  Javier
  * Created: 08-may-2018
  */
-
+DROP TABLE Empleado;
 CREATE TABLE Empleado(
     IdEmpleado INT,
     Nombre VARCHAR(20) NOT NULL,
@@ -17,20 +17,13 @@ CREATE TABLE Empleado(
     FechaNac DATE,
     Direccion VARCHAR(30),
     Salario DECIMAL(10, 2 ),
-    IdSupervisor INT,
-    IdDepartamento INT,
-    PRIMARY KEY (IdEmpleado),
-    FOREIGN KEY (IdSupervisor)
-        REFERENCES Empleado(IdEmpleado)
+    PRIMARY KEY (IdEmpleado)
 );
 
 CREATE TABLE Departamento(
     IdDepartamento INT,
     Nombre VARCHAR(20) NOT NULL,
     NumDepart INT NOT NULL,
-    IdJefeDepart INT,
     FechaJefe DATE,
-    PRIMARY KEY (IdDepartamento),
-    FOREIGN KEY (IdJefeDepart)
-        REFERENCES Empleado (IdEmpleado)
-);
+    PRIMARY KEY (IdDepartamento)
+;
