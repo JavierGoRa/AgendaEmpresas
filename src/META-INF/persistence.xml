@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>BDEmpresa.Empleado</class>
     <class>BDEmpresa.Departamento</class>
+    <class>agendacontactos.Empleado</class>
+    <class>agendacontactos.Departamento</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:BDEmpresa;create=true"/>
       <property name="javax.persistence.jdbc.user" value="APP"/>
