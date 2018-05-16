@@ -5,9 +5,12 @@
  */
 package agendacontactos;
 
+import java.math.BigDecimal;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Date;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,7 +19,7 @@ import javax.persistence.Persistence;
  *
  * @author Javier
  */
-public class AgendaContactos{
+public class AgendaContactos extends Application {
     
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("EmpresaPU");
@@ -38,7 +41,7 @@ public class AgendaContactos{
         empleado1.setNss("333445555");
         empleado1.setFechanac(new Date());
         empleado1.setDireccion("731 Fondren, Houston, TX");
-        empleado1.setSalario(30000);
+        empleado1.setSalario(new BigDecimal(30000));
         
         Empleado empleado2 = new Empleado();
         empleado2.setIdempleado(2);
@@ -48,7 +51,7 @@ public class AgendaContactos{
         empleado2.setNss("333445555");
         empleado2.setFechanac(new Date());
         empleado2.setDireccion("638 Voss, Houston, TX");
-        empleado2.setSalario(40000);
+        empleado2.setSalario(new BigDecimal(40000));
         
         Empleado empleado3 = new Empleado();
         empleado3.setIdempleado(3);
@@ -58,7 +61,7 @@ public class AgendaContactos{
         empleado3.setNss("999887777");
         empleado3.setFechanac(new Date());
         empleado3.setDireccion("3321 Castle, spring, TX");
-        empleado3.setSalario(25000);
+        empleado3.setSalario(new BigDecimal(25000));
         
         Empleado empleado4 = new Empleado();
         empleado4.setIdempleado(4);
@@ -68,7 +71,7 @@ public class AgendaContactos{
         empleado4.setNss("987654321");
         empleado4.setFechanac(new Date());
         empleado4.setDireccion("291 Berry, Bellaire, TX");
-        empleado4.setSalario(43000);
+        empleado4.setSalario(new BigDecimal(43000));
         
         Empleado empleado5 = new Empleado();
         empleado5.setIdempleado(5);
@@ -78,7 +81,7 @@ public class AgendaContactos{
         empleado5.setNss("666884444");
         empleado5.setFechanac(new Date());
         empleado5.setDireccion("975 Fire Oak, Humble, TX");
-        empleado5.setSalario(38000);
+        empleado5.setSalario(new BigDecimal(38000));
         
         Empleado empleado6 = new Empleado();
         empleado6.setIdempleado(6);
@@ -88,7 +91,7 @@ public class AgendaContactos{
         empleado6.setNss("453453453");
         empleado6.setFechanac(new Date());
         empleado6.setDireccion("5631 Rice, Houston, TX");
-        empleado6.setSalario(25000);
+        empleado6.setSalario(new BigDecimal(25000));
         
         Empleado empleado7 = new Empleado();
         empleado7.setIdempleado(7);
@@ -98,7 +101,7 @@ public class AgendaContactos{
         empleado7.setNss("987987987");
         empleado7.setFechanac(new Date());
         empleado7.setDireccion("980 Dallas, Houston, TX");
-        empleado7.setSalario(25000);
+        empleado7.setSalario(new BigDecimal(25000));
         
         Empleado empleado8= new Empleado();
         empleado8.setIdempleado(8);
@@ -108,21 +111,21 @@ public class AgendaContactos{
         empleado8.setNss("888775555");
         empleado8.setFechanac(new Date());
         empleado8.setDireccion("450 Stone, Houston, TX");
-        empleado8.setSalario(43000);
+        empleado8.setSalario(new BigDecimal(43000));
         
-        Departamento departamento1= new Departamento();
+        Departamento departamento1 = new Departamento();
         departamento1.setIddepartamento(1);
         departamento1.setNombre("Investigacion");
         departamento1.setNumdepart(1);
         departamento1.setFechajefe(new Date());
             
-        Departamento departamento2= new Departamento();
+        Departamento departamento2 = new Departamento();
         departamento2.setIddepartamento(2);
         departamento2.setNombre("Administracion");
         departamento2.setNumdepart(2);
         departamento2.setFechajefe(new Date());
         
-        Departamento departamento3= new Departamento();
+        Departamento departamento3 = new Departamento();
         departamento3.setIddepartamento(3);
         departamento3.setNombre("Direccion");
         departamento3.setNumdepart(3);
@@ -141,6 +144,11 @@ public class AgendaContactos{
         em.persist(departamento2);
         em.persist(departamento3);
         em.getTransaction().commit();
+        
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         
     }
     
