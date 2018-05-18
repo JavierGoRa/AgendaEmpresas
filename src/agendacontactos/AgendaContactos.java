@@ -25,13 +25,7 @@ public class AgendaContactos extends Application {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("EmpresaPU");
         EntityManager em = emf.createEntityManager();
     
-        // Cerrar la conexión con la base de datos
-        em.close(); 
-        emf.close(); 
-        try { 
-            DriverManager.getConnection("jdbc:derby:BDEmpresa;shutdown=true"); 
-        } catch (SQLException ex) { 
-        }
+        
         
         Empleado empleado1 = new Empleado();
         empleado1.setIdempleado(1);
@@ -144,9 +138,16 @@ public class AgendaContactos extends Application {
         em.persist(departamento2);
         em.persist(departamento3);
         em.getTransaction().commit();
-        
+    // Cerrar la conexión con la base de datos
+        em.close(); 
+        emf.close(); 
+        try { 
+            DriverManager.getConnection("jdbc:derby:BDEmpresa;shutdown=true"); 
+        } catch (SQLException ex) { 
+        }    
     }
 
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         
