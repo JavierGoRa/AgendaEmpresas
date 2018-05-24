@@ -24,12 +24,23 @@ public class AgendaContactos extends Application {
     private EntityManagerFactory emf;
     private EntityManager em;
     
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EmpresaFXML.fxml"));
+        Parent root = fxmlLoader.load();
+        
+        emf = Persistence.createEntityManagerFactory("EmpresaPU");
+        em = emf.createEntityManager();
+        
+        EmpresaFXMLController empresaFXMLController = (EmpresaFXMLController) fxmlLoader.getController();  
+        empresaFXMLController.setEntityManager(em);
+        empresaFXMLController.cargarTodosEmpleados();
+    
+        
+    }
+    
     public static void main(String[] args) {
-        
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EmpresaPU");
-        EntityManager em = emf.createEntityManager();
-        
         
         
 //        Empleado empleado1 = new Empleado();
@@ -144,26 +155,16 @@ public class AgendaContactos extends Application {
 //        em.persist(departamento3);
 //        em.getTransaction().commit();
     // Cerrar la conexión con la base de datos
+          
+    }
+    
+    public void stop() throws Exception {
         em.close(); 
         emf.close(); 
         try { 
             DriverManager.getConnection("jdbc:derby:BDEmpresa;shutdown=true"); 
         } catch (SQLException ex) { 
-        }    
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EmpresaFXML.fxml"));
-        Parent root = fxmlLoader.load();
-        
-        emf = Persistence.createEntityManagerFactory("EmpresaPU");
-        em = emf.createEntityManager();
-        
-        EmpresaFXMLController empresaFXMLController = (EmpresaFXMLController) fxmlLoader.getController();  
-        
-        empresaFXMLController.setEntityManager(em);
-        empresaFXMLController.cargarTodosEmpleados();
+        }  
     }
     
 }

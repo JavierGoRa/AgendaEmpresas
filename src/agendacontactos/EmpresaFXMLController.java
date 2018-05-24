@@ -29,21 +29,21 @@ public class EmpresaFXMLController implements Initializable {
     @FXML
     private TableView<Empleado> tablaEmpleado;
     @FXML
-    private TableColumn<Empleado, ?> columnaIdEmpleado;
+    private TableColumn<Empleado, String> columnaIdEmpleado;
     @FXML
-    private TableColumn<Empleado, ?> columnaNombre;
+    private TableColumn<Empleado, String> columnaNombre;
     @FXML
-    private TableColumn<Empleado, ?> columnaINC;
+    private TableColumn<Empleado, Integer> columnaINC;
     @FXML
-    private TableColumn<Empleado, ?> columnaApellidos;
+    private TableColumn<Empleado, String> columnaApellidos;
     @FXML
-    private TableColumn<Empleado, ?> columnaNSS;
+    private TableColumn<Empleado, Integer> columnaNSS;
     @FXML
-    private TableColumn<Empleado, ?> columnaFechaNac;
+    private TableColumn<Empleado, Integer> columnaFechaNac;
     @FXML
-    private TableColumn<Empleado, ?> columnaDireccion;
+    private TableColumn<Empleado, String> columnaDireccion;
     @FXML
-    private TableColumn<Empleado, ?> columnaSalario;
+    private TableColumn<Empleado, Integer> columnaSalario;
     
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
