@@ -45,15 +45,12 @@ public class EmpresaFXMLController implements Initializable {
     @FXML
     private TableColumn<Empleado, Integer> columnaSalario;
     
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
+    public void initialize(URL url, ResourceBundle rb) {   
         columnaIdEmpleado.setCellValueFactory(new PropertyValueFactory<>("IdEmpleado"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
         columnaINC.setCellValueFactory(new PropertyValueFactory<>("INC"));
@@ -64,8 +61,12 @@ public class EmpresaFXMLController implements Initializable {
         columnaSalario.setCellValueFactory(new PropertyValueFactory<>("Salario"));
     }    
     
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+    
     public void cargarTodosEmpleados(){
-        Query queryEmpleadoFindAll = entityManager.createNamedQuery("Persona.findAll");
+        Query queryEmpleadoFindAll = entityManager.createNamedQuery("Empleado.findAll");
         List<Empleado> listEmpleado = queryEmpleadoFindAll.getResultList();
         tablaEmpleado.setItems(FXCollections.observableArrayList(listEmpleado));
     }

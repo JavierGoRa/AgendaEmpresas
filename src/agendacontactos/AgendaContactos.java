@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,12 +37,25 @@ public class AgendaContactos extends Application {
         EmpresaFXMLController empresaFXMLController = (EmpresaFXMLController) fxmlLoader.getController();  
         empresaFXMLController.setEntityManager(em);
         empresaFXMLController.cargarTodosEmpleados();
-    
         
+        Scene scene = new Scene(root, 656, 400);
+        
+        primaryStage.setTitle("Agenda mpresa");
+        primaryStage.setScene(scene);
+        primaryStage.show();    
+    }
+    
+    public void stop() throws Exception {
+        em.close(); 
+        emf.close(); 
+        try { 
+            DriverManager.getConnection("jdbc:derby:BDEmpresa;shutdown=true"); 
+        } catch (SQLException ex) { 
+        }  
     }
     
     public static void main(String[] args) {
-        
+        launch(args);
         
 //        Empleado empleado1 = new Empleado();
 //        empleado1.setIdempleado(1);
@@ -158,13 +172,6 @@ public class AgendaContactos extends Application {
           
     }
     
-    public void stop() throws Exception {
-        em.close(); 
-        emf.close(); 
-        try { 
-            DriverManager.getConnection("jdbc:derby:BDEmpresa;shutdown=true"); 
-        } catch (SQLException ex) { 
-        }  
-    }
+    
     
 }
