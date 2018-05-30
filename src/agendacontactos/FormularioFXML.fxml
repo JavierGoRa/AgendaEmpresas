@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agendacontactos.FormularioFXMLController">
+<AnchorPane id="AnchorPane" fx:id="rootFormularioFXML" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agendacontactos.FormularioFXMLController">
    <children>
       <GridPane layoutX="80.0" layoutY="50.0" prefHeight="240.0" prefWidth="461.0">
         <columnConstraints>

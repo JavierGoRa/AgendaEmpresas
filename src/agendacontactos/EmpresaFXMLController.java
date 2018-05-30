@@ -5,19 +5,25 @@
  */
 package agendacontactos;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -53,6 +59,8 @@ public class EmpresaFXMLController implements Initializable {
     private TextField textFieldNombre;
     @FXML
     private TextField textFieldApellidos;
+    @FXML
+    private AnchorPane rootEmpresaFXML;
     
     
     /**
@@ -80,6 +88,8 @@ public class EmpresaFXMLController implements Initializable {
                         textFieldApellidos.setText("");
                     }
                 });
+        
+        
     }    
     
     public void setEntityManager(EntityManager entityManager) {
@@ -107,5 +117,32 @@ public class EmpresaFXMLController implements Initializable {
             tablaEmpleado.getFocusModel().focus(pos);
             tablaEmpleado.requestFocus();
         }
+    }
+
+    @FXML
+    private void onActionButtonNuevo(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FormularioFXML.fxml"));
+            Parent rootFormularioFXML = fxmlLoader.load();
+            
+            rootEmpresaFXML.setVisible(false);
+            
+            StackPane rootMain = (StackPane)rootEmpresaFXML.getScene().getRoot();
+            rootMain.getChildren().add(rootFormularioFXML);
+        
+            FormularioFXMLController formularioFXMLController = (FormularioFXMLController) fxmlLoader.getController();
+            formularioFXMLController.setRootEmpresaFXML(rootEmpresaFXML);
+        } catch (IOException ex){
+            Logger.getLogger(EmpresaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void onActionButtonEditar(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActinoButtonSuprimir(ActionEvent event) {
     }
 }

@@ -9,8 +9,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,8 +29,11 @@ public class AgendaContactos extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
+        
+        StackPane rootMain = new StackPane();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EmpresaFXML.fxml"));
-        Parent root = fxmlLoader.load();
+        Pane rootEmpresaFXML = fxmlLoader.load();
+        rootMain.getChildren().add(rootEmpresaFXML);
         
         emf = Persistence.createEntityManagerFactory("EmpresaPU");
         em = emf.createEntityManager();
@@ -38,7 +42,7 @@ public class AgendaContactos extends Application {
         empresaFXMLController.setEntityManager(em);
         empresaFXMLController.cargarTodosEmpleados();
         
-        Scene scene = new Scene(root, 656, 400);
+        Scene scene = new Scene(rootMain, 656, 400);
         
         primaryStage.setTitle("Agenda mpresa");
         primaryStage.setScene(scene);

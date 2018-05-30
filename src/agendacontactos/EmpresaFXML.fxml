@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agendacontactos.EmpresaFXMLController">
+<AnchorPane id="AnchorPane" fx:id="rootEmpresaFXML" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agendacontactos.EmpresaFXMLController">
    <children>
       <GridPane layoutX="200.0" layoutY="30.0">
         <columnConstraints>
@@ -23,9 +23,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Nuevo" />
-            <Button mnemonicParsing="false" text="Editar" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" text="Suprimir" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonNuevo" text="Nuevo" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonEditar" text="Editar" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" onAction="#onActinoButtonSuprimir" text="Suprimir" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <TableView fx:id="tablaEmpleado" layoutY="80.0" prefHeight="200.0" prefWidth="656.0">
