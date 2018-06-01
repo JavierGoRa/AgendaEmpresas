@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -40,6 +42,7 @@ public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDEMPLEADO")
     private Integer idempleado;
@@ -51,7 +54,6 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @Column(name = "APELLIDOS")
     private String apellidos;
-    @Basic(optional = false)
     @Column(name = "NSS")
     private String nss;
     @Column(name = "FECHANAC")
@@ -70,11 +72,10 @@ public class Empleado implements Serializable {
         this.idempleado = idempleado;
     }
 
-    public Empleado(Integer idempleado, String nombre, String apellidos, String nss) {
+    public Empleado(Integer idempleado, String nombre, String apellidos) {
         this.idempleado = idempleado;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.nss = nss;
     }
 
     public Integer getIdempleado() {
@@ -165,7 +166,5 @@ public class Empleado implements Serializable {
     public String toString() {
         return "agendacontactos.Empleado[ idempleado=" + idempleado + " ]";
     }
-
-
     
 }

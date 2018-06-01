@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -49,7 +50,7 @@ public class FormularioFXMLController implements Initializable {
     @FXML
     private AnchorPane rootFormularioFXML;
     private TableView tableViewPrevio;
-    private Empleado Empleado;
+    private Empleado empleado;
     private EntityManager entityManager;
     private boolean nuevoEmpleado;
     
@@ -57,20 +58,25 @@ public class FormularioFXMLController implements Initializable {
         this.rootEmpresaFXML = rootEmpresaFXML;
     }
     
+    public void setEmpleado(EntityManager entityManager, Empleado empleado, boolean nuevoEmpleado){
+        this.entityManager = entityManager;
+        entityManager.getTransaction().begin();
+        if(!nuevoEmpleado){
+            this.empleado = entityManager.find(Empleado.class, empleado.getIdempleado());
+        } else {
+            this.empleado = empleado;
+        }
+        this.nuevoEmpleado = nuevoEmpleado;
+    }
+    
     public void setTableViewPrevio(TableView tableViewPrevio){
         this.tableViewPrevio = tableViewPrevio;
     }
     
-//    public void setEmpleado(EntityManager entityManager, Empleado empleado, boolean nuevoEmpleado){
-//        this.entityManager = entityManager;
-//        entityManager.getTransaction().begin();
-//        if(!nuevoEmpleado){
-//            this.Empleado = entityManager.find(Empleado.class, empleado.getIdempleado());
-//        } else {
-//            this.empleado = empleado;
-//        }
-//        this.nuevoEmpleado = nuevoEmpleado;
-//    }
+    public void mostrarDatos() {
+        textFieldNombre.setText(empleado.getNombre());
+        textFieldApellidos.setText(empleado.getApellidos());
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -84,10 +90,40 @@ public class FormularioFXMLController implements Initializable {
         rootMain.getChildren().remove(rootFormularioFXML);
     
         rootEmpresaFXML.setVisible(true);
+        
+        empleado.setNombre(textFieldNombre.getText());
+        empleado.setApellidos(textFieldApellidos.getText());
+        
+        if(nuevoEmpleado){
+            entityManager.persist(empleado);
+        } else {
+            entityManager.merge(empleado);
+        }
+        entityManager.getTransaction().commit();
+        
+        int numFilaSeleccionada;
+        if(nuevoEmpleado){
+            tableViewPrevio.getItems().add(empleado);
+            numFilaSeleccionada = tableViewPrevio.getItems().size() - 1;
+            tableViewPrevio.getSelectionModel().select(numFilaSeleccionada);
+            tableViewPrevio.scrollTo(numFilaSeleccionada);
+        } else {
+            numFilaSeleccionada = tableViewPrevio.getSelectionModel().getSelectedIndex();
+            tableViewPrevio.getItems().set(numFilaSeleccionada, empleado);
+        }
+        TablePosition pos = new TablePosition(tableViewPrevio, numFilaSeleccionada, null);
+        tableViewPrevio.getFocusModel().focus(pos);
+        tableViewPrevio.requestFocus();
     }
 
     @FXML
     private void onActionButtonCancelar(ActionEvent event) {
+        entityManager.getTransaction().rollback();
+        
+        int numFilaSeleccionada = tableViewPrevio.getSelectionModel().getSelectedIndex();
+        TablePosition pos = new TablePosition(tableViewPrevio, numFilaSeleccionada, null);
+        tableViewPrevio.getFocusModel().focus(pos);
+        tableViewPrevio.requestFocus();
     }
     
     

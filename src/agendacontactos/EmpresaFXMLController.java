@@ -8,6 +8,7 @@ package agendacontactos;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -36,7 +40,7 @@ public class EmpresaFXMLController implements Initializable {
 
     
     private EntityManager entityManager;
-    private Empleado personaSeleccionada;
+    private Empleado empleadoSeleccionado;
     @FXML
     private TableView<Empleado> tablaEmpleado;
     @FXML
@@ -66,6 +70,7 @@ public class EmpresaFXMLController implements Initializable {
     /**
      * Initializes the controller class.
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
         columnaIdEmpleado.setCellValueFactory(new PropertyValueFactory<>("IdEmpleado"));
@@ -77,12 +82,11 @@ public class EmpresaFXMLController implements Initializable {
         columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("Direccion"));
         columnaSalario.setCellValueFactory(new PropertyValueFactory<>("Salario"));
     
-        tablaEmpleado.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    personaSeleccionada = newValue;
-                    if (personaSeleccionada != null) {
-                        textFieldNombre.setText(personaSeleccionada.getNombre());
-                        textFieldApellidos.setText(personaSeleccionada.getApellidos());
+        tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                    empleadoSeleccionado = newValue;
+                    if (empleadoSeleccionado != null) {
+                        textFieldNombre.setText(empleadoSeleccionado.getNombre());
+                        textFieldApellidos.setText(empleadoSeleccionado.getApellidos());
                     } else {
                         textFieldNombre.setText("");
                         textFieldApellidos.setText("");
@@ -104,23 +108,55 @@ public class EmpresaFXMLController implements Initializable {
 
     @FXML
     private void onActionButtonGuardar(ActionEvent event) {
-        if (personaSeleccionada != null) {
-            personaSeleccionada.setNombre(textFieldNombre.getText());
-            personaSeleccionada.setApellidos(textFieldApellidos.getText());
+        if (empleadoSeleccionado != null) {
+            empleadoSeleccionado.setNombre(textFieldNombre.getText());
+            empleadoSeleccionado.setApellidos(textFieldApellidos.getText());
             entityManager.getTransaction().begin();
-            entityManager.merge(personaSeleccionada);
+            entityManager.merge(empleadoSeleccionado);
             entityManager.getTransaction().commit();
 
             int numFilaSeleccionada = tablaEmpleado.getSelectionModel().getSelectedIndex();
-            tablaEmpleado.getItems().set(numFilaSeleccionada, personaSeleccionada);
+            tablaEmpleado.getItems().set(numFilaSeleccionada, empleadoSeleccionado);
             TablePosition pos = new TablePosition(tablaEmpleado, numFilaSeleccionada, null);
             tablaEmpleado.getFocusModel().focus(pos);
             tablaEmpleado.requestFocus();
         }
+        
     }
-
+    
+    //Abrira el formulario y cuando rellene los datos los pasara a la vista como nuevo empleado
     @FXML
     private void onActionButtonNuevo(ActionEvent event) {
+        try {
+            //Abre el formulario
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FormularioFXML.fxml"));
+            Parent rootFormularioFXML = fxmlLoader.load();
+            //Cierra la vista
+            rootEmpresaFXML.setVisible(false);
+            
+            StackPane rootMain = (StackPane)rootEmpresaFXML.getScene().getRoot();
+            rootMain.getChildren().add(rootFormularioFXML);
+        
+            FormularioFXMLController formularioFXMLController = (FormularioFXMLController) fxmlLoader.getController();
+            formularioFXMLController.setRootEmpresaFXML(rootEmpresaFXML);
+            
+            formularioFXMLController.setTableViewPrevio(tablaEmpleado);
+            
+            empleadoSeleccionado = new Empleado();
+            formularioFXMLController.setEmpleado(entityManager, empleadoSeleccionado, true);
+
+            formularioFXMLController.mostrarDatos();
+
+            
+        } catch (IOException ex){
+            Logger.getLogger(EmpresaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    //Pasara los datos de un empleado al formulario para poder editarlo
+    @FXML
+    private void onActionButtonEditar(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FormularioFXML.fxml"));
             Parent rootFormularioFXML = fxmlLoader.load();
@@ -132,17 +168,41 @@ public class EmpresaFXMLController implements Initializable {
         
             FormularioFXMLController formularioFXMLController = (FormularioFXMLController) fxmlLoader.getController();
             formularioFXMLController.setRootEmpresaFXML(rootEmpresaFXML);
+            
+            formularioFXMLController.setTableViewPrevio(tablaEmpleado);
+            
+            formularioFXMLController.setEmpleado(entityManager, empleadoSeleccionado, false);
+
+            formularioFXMLController.mostrarDatos();
+
         } catch (IOException ex){
             Logger.getLogger(EmpresaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
-
-    @FXML
-    private void onActionButtonEditar(ActionEvent event) {
     }
 
     @FXML
     private void onActinoButtonSuprimir(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar");
+        alert.setHeaderText("¿Desea suprimir el siguiente registro?");
+        alert.setContentText(empleadoSeleccionado.getNombre() + " "
+                + empleadoSeleccionado.getApellidos());
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // Acciones a realizar si el usuario acepta
+            entityManager.getTransaction().begin();
+            entityManager.merge(empleadoSeleccionado);
+            entityManager.remove(empleadoSeleccionado);
+            entityManager.getTransaction().commit();
+
+            tablaEmpleado.getItems().remove(empleadoSeleccionado);
+
+            tablaEmpleado.getFocusModel().focus(null);
+            tablaEmpleado.requestFocus();
+        } else {
+            // Acciones a realizar si el usuario cancela
+        }
     }
+    
+    
 }

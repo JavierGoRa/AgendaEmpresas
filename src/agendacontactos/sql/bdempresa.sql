@@ -9,11 +9,11 @@
  */
 DROP TABLE EMPLEADO;
 CREATE TABLE Empleado(
-    IdEmpleado INT,
+    IdEmpleado INT NOT NULL GENERATED ALWAYS AS IDENTITY,
     Nombre VARCHAR(20) NOT NULL,
     INC CHAR,
     Apellidos VARCHAR(40) NOT NULL,
-    NSS CHAR(9) NOT NULL,
+    NSS CHAR(9),
     FechaNac DATE,
     Direccion VARCHAR(30),
     Salario DECIMAL(10, 2 ),
