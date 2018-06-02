@@ -201,6 +201,13 @@ public class EmpresaFXMLController implements Initializable {
             tablaEmpleado.requestFocus();
         } else {
             // Acciones a realizar si el usuario cancela
+            int numFilaSeleccionada = tablaEmpleado.getSelectionModel().getSelectedIndex();
+            
+            tablaEmpleado.getItems().set(numFilaSeleccionada, empleadoSeleccionado);
+            TablePosition pos = new TablePosition(tablaEmpleado, numFilaSeleccionada, null);
+            tablaEmpleado.getFocusModel().focus(pos);
+            tablaEmpleado.requestFocus();
+            
         }
     }
     

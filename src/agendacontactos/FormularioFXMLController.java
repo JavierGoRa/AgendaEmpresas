@@ -75,7 +75,12 @@ public class FormularioFXMLController implements Initializable {
     
     public void mostrarDatos() {
         textFieldNombre.setText(empleado.getNombre());
+//        textFieldINC.setText(empleado.getINC());
         textFieldApellidos.setText(empleado.getApellidos());
+        
+        
+        
+        
     }
     
     @Override
@@ -92,6 +97,7 @@ public class FormularioFXMLController implements Initializable {
         rootEmpresaFXML.setVisible(true);
         
         empleado.setNombre(textFieldNombre.getText());
+//        empleado.setInc(textFieldINC.getText());
         empleado.setApellidos(textFieldApellidos.getText());
         
         if(nuevoEmpleado){
@@ -115,7 +121,7 @@ public class FormularioFXMLController implements Initializable {
         tableViewPrevio.getFocusModel().focus(pos);
         tableViewPrevio.requestFocus();
     }
-
+    
     @FXML
     private void onActionButtonCancelar(ActionEvent event) {
         entityManager.getTransaction().rollback();
