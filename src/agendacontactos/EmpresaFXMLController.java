@@ -43,7 +43,6 @@ public class EmpresaFXMLController implements Initializable {
     private Empleado empleadoSeleccionado;
     @FXML
     private TableView<Empleado> tablaEmpleado;
-    @FXML
     private TableColumn<Empleado, String> columnaIdEmpleado;
     @FXML
     private TableColumn<Empleado, String> columnaNombre;
@@ -65,6 +64,8 @@ public class EmpresaFXMLController implements Initializable {
     private TextField textFieldApellidos;
     @FXML
     private AnchorPane rootEmpresaFXML;
+    @FXML
+    private TableColumn<?, ?> columnaIdDepartamento;
     
     
     /**

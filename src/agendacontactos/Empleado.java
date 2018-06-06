@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -64,6 +66,9 @@ public class Empleado implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SALARIO")
     private BigDecimal salario;
+    @JoinColumn(name = "IDDEPARTAMENTO", referencedColumnName = "IDDEPARTAMENTO")
+    @ManyToOne
+    private Departamento iddepartamento;
 
     public Empleado() {
     }
@@ -140,6 +145,14 @@ public class Empleado implements Serializable {
 
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
+    }
+
+    public Departamento getIddepartamento() {
+        return iddepartamento;
+    }
+
+    public void setIddepartamento(Departamento iddepartamento) {
+        this.iddepartamento = iddepartamento;
     }
 
     @Override

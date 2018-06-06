@@ -8,6 +8,16 @@
  * Created: 08-may-2018
  */
 DROP TABLE EMPLEADO;
+DROP TABLE DEPARTAMENTO;
+
+CREATE TABLE Departamento(
+    IdDepartamento INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+    Nombre VARCHAR(20) NOT NULL,
+    NumDepart INT NOT NULL,
+    FechaJefe DATE,
+    PRIMARY KEY (IdDepartamento)
+);
+
 CREATE TABLE Empleado(
     IdEmpleado INT NOT NULL GENERATED ALWAYS AS IDENTITY,
     Nombre VARCHAR(20) NOT NULL,
@@ -17,14 +27,8 @@ CREATE TABLE Empleado(
     FechaNac DATE,
     Direccion VARCHAR(30),
     Salario DECIMAL(10, 2 ),
-    PRIMARY KEY (IdEmpleado)
+    IdDepartamento INT,
+    PRIMARY KEY (IdEmpleado),
+    CONSTRAINT Departamento_PK FOREIGN KEY (IdDepartamento) REFERENCES Departamento (IdDepartamento)
 );
 
-DROP TABLE DEPARTAMENTO;
-CREATE TABLE Departamento(
-    IdDepartamento INT,
-    Nombre VARCHAR(20) NOT NULL,
-    NumDepart INT NOT NULL,
-    FechaJefe DATE,
-    PRIMARY KEY (IdDepartamento)
-);

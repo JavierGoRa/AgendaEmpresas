@@ -30,14 +30,14 @@
       </GridPane>
       <TableView fx:id="tablaEmpleado" layoutY="80.0" prefHeight="200.0" prefWidth="656.0">
         <columns>
-          <TableColumn fx:id="columnaIdEmpleado" prefWidth="75.0" text="IdEmpleado" />
           <TableColumn fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
             <TableColumn fx:id="columnaINC" prefWidth="43.0" text="INC" />
             <TableColumn fx:id="columnaApellidos" prefWidth="83.0" text="Apellidos" />
-            <TableColumn fx:id="columnaNSS" prefWidth="70.0" text="NSS" />
-            <TableColumn fx:id="columnaFechaNac" prefWidth="92.0" text="FechaNac" />
+            <TableColumn fx:id="columnaNSS" prefWidth="67.0" text="NSS" />
+            <TableColumn fx:id="columnaFechaNac" prefWidth="95.0" text="FechaNac" />
             <TableColumn fx:id="columnaSalario" prefWidth="75.0" text="Salario" />
-            <TableColumn fx:id="columnaDireccion" prefWidth="142.0" text="Dirección" />
+            <TableColumn fx:id="columnaDireccion" prefWidth="116.0" text="Dirección" />
+          <TableColumn fx:id="columnaIdDepartamento" prefWidth="101.0" text="IdDepartamento" />
         </columns>
          <opaqueInsets>
             <Insets />

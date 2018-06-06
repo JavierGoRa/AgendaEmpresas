@@ -75,9 +75,10 @@ public class FormularioFXMLController implements Initializable {
     
     public void mostrarDatos() {
         textFieldNombre.setText(empleado.getNombre());
-//        textFieldINC.setText(empleado.getINC());
+//        textFieldINC.setText(empleado.getInc());
         textFieldApellidos.setText(empleado.getApellidos());
-        
+        textFieldNSS.setText(empleado.getNss());       
+        textFieldDireccion.setText(empleado.getDireccion());
         
         
         
@@ -99,6 +100,13 @@ public class FormularioFXMLController implements Initializable {
         empleado.setNombre(textFieldNombre.getText());
 //        empleado.setInc(textFieldINC.getText());
         empleado.setApellidos(textFieldApellidos.getText());
+        empleado.setNss(textFieldNSS.getText());
+        empleado.setDireccion(textFieldDireccion.getText());
+        if(empleado.getSalario() != null) {
+            textFieldSalario.setText(empleado.getSalario().toString());
+        }        
+        
+        
         
         if(nuevoEmpleado){
             entityManager.persist(empleado);
