@@ -64,8 +64,7 @@ public class EmpresaFXMLController implements Initializable {
     private TextField textFieldApellidos;
     @FXML
     private AnchorPane rootEmpresaFXML;
-    @FXML
-    private TableColumn<?, ?> columnaIdDepartamento;
+    private TableColumn<Empleado, Integer> columnaIdDepartamento;
     
     
     /**
@@ -74,7 +73,6 @@ public class EmpresaFXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
-        columnaIdEmpleado.setCellValueFactory(new PropertyValueFactory<>("IdEmpleado"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
         columnaINC.setCellValueFactory(new PropertyValueFactory<>("INC"));
         columnaApellidos.setCellValueFactory(new PropertyValueFactory<>("Apellidos"));
@@ -82,6 +80,7 @@ public class EmpresaFXMLController implements Initializable {
         columnaFechaNac.setCellValueFactory(new PropertyValueFactory<>("FechaNac"));
         columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("Direccion"));
         columnaSalario.setCellValueFactory(new PropertyValueFactory<>("Salario"));
+
     
         tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                     empleadoSeleccionado = newValue;
@@ -100,7 +99,7 @@ public class EmpresaFXMLController implements Initializable {
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
+
     public void cargarTodosEmpleados(){
         Query queryEmpleadoFindAll = entityManager.createNamedQuery("Empleado.findAll");
         List<Empleado> listEmpleado = queryEmpleadoFindAll.getResultList();
@@ -195,7 +194,7 @@ public class EmpresaFXMLController implements Initializable {
             entityManager.merge(empleadoSeleccionado);
             entityManager.remove(empleadoSeleccionado);
             entityManager.getTransaction().commit();
-
+            
             tablaEmpleado.getItems().remove(empleadoSeleccionado);
 
             tablaEmpleado.getFocusModel().focus(null);

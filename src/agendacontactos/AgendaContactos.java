@@ -61,6 +61,8 @@ public class AgendaContactos extends Application {
     public static void main(String[] args) {
         launch(args);
         
+      
+        
 //        Empleado empleado1 = new Empleado();
 //        empleado1.setIdempleado(1);
 //        empleado1.setNombre("John");

@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Wed Jun 06 10:01:52 CEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0163-d41d-c926-000004b8d7f8 
+Fri Jun 08 14:59:24 CEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0163-df7a-eb20-000005194210 
 on database directory C:\Users\Javier\Documents\NetBeansProjects\AgendaEmpresas\BDEmpresa with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/C:/Users/Javier/Documents/NetBeansProjects/AgendaEmpresas/dist/run196854602/lib/derby.jar
+Loaded from file:/C:/Users/Javier/Documents/NetBeansProjects/AgendaEmpresas/dist/run2072502997/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_151-b12
 user.dir=C:\Users\Javier\Documents\NetBeansProjects\AgendaEmpresas
@@ -11,6 +11,3 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Wed Jun 06 10:40:04 CEST 2018:
-Shutting down instance a816c00e-0163-d41d-c926-000004b8d7f8 on database directory C:\Users\Javier\Documents\NetBeansProjects\AgendaEmpresas\BDEmpresa with class loader sun.misc.Launcher$AppClassLoader@55f96302 
