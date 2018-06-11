@@ -62,9 +62,7 @@ public class FormularioFXMLController implements Initializable {
     
     
     @FXML
-    private ComboBox<Departamento> comboBoxDepartamento;
-    
-    
+    public ComboBox<Departamento> comboBoxDepartamento;
     
     public void setRootEmpresaFXML(Pane rootEmpresaFXML) {
         this.rootEmpresaFXML = rootEmpresaFXML;
@@ -139,6 +137,7 @@ public class FormularioFXMLController implements Initializable {
         empleado.setApellidos(textFieldApellidos.getText());
         empleado.setNss(textFieldNSS.getText());
         empleado.setDireccion(textFieldDireccion.getText());
+        empleado.setIddepartamento(comboBoxDepartamento.getValue());
         if(empleado.getSalario() != null) {
             textFieldSalario.setText(empleado.getSalario().toString());
         }        
@@ -148,6 +147,7 @@ public class FormularioFXMLController implements Initializable {
         } else {
             entityManager.merge(empleado);
         }
+        
         entityManager.getTransaction().commit();
         
         int numFilaSeleccionada;

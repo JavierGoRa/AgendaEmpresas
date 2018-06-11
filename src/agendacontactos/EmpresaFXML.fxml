@@ -37,7 +37,7 @@
             <TableColumn fx:id="columnaFechaNac" prefWidth="95.0" text="FechaNac" />
             <TableColumn fx:id="columnaSalario" prefWidth="75.0" text="Salario" />
             <TableColumn fx:id="columnaDireccion" prefWidth="116.0" text="Dirección" />
-            <TableColumn prefWidth="101.0" text="Departamento" />
+            <TableColumn fx:id="columnaDepartamento" prefWidth="101.0" text="Departamento" />
         </columns>
          <opaqueInsets>
             <Insets />

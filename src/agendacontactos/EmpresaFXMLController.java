@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.StringConverter;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -43,7 +44,6 @@ public class EmpresaFXMLController implements Initializable {
     private Empleado empleadoSeleccionado;
     @FXML
     private TableView<Empleado> tablaEmpleado;
-    private TableColumn<Empleado, String> columnaIdEmpleado;
     @FXML
     private TableColumn<Empleado, String> columnaNombre;
     @FXML
@@ -64,7 +64,9 @@ public class EmpresaFXMLController implements Initializable {
     private TextField textFieldApellidos;
     @FXML
     private AnchorPane rootEmpresaFXML;
-    private TableColumn<Empleado, Integer> columnaIdDepartamento;
+    //private TableColumn<Empleado, Integer> columnaIdDepartamento;
+    @FXML
+    private TableColumn<Empleado, String> columnaDepartamento;
     
     
     /**
@@ -80,8 +82,10 @@ public class EmpresaFXMLController implements Initializable {
         columnaFechaNac.setCellValueFactory(new PropertyValueFactory<>("FechaNac"));
         columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("Direccion"));
         columnaSalario.setCellValueFactory(new PropertyValueFactory<>("Salario"));
-
-    
+        columnaDepartamento.setCellValueFactory(new PropertyValueFactory<>("iddepartamento"));
+        //Mirar la teoria
+//        columnaDepartamento.setC;
+        
         tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                     empleadoSeleccionado = newValue;
                     if (empleadoSeleccionado != null) {
