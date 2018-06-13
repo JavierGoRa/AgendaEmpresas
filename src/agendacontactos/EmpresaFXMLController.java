@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,9 +83,14 @@ public class EmpresaFXMLController implements Initializable {
         columnaFechaNac.setCellValueFactory(new PropertyValueFactory<>("FechaNac"));
         columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("Direccion"));
         columnaSalario.setCellValueFactory(new PropertyValueFactory<>("Salario"));
-        columnaDepartamento.setCellValueFactory(new PropertyValueFactory<>("iddepartamento"));
-        //Mirar la teoria
-//        columnaDepartamento.setC;
+        columnaDepartamento.setCellValueFactory(
+            cellData -> {
+                SimpleStringProperty property = new SimpleStringProperty();
+                if (cellData.getValue().getIddepartamento()!= null) {
+                    property.setValue(cellData.getValue().getIddepartamento().getNombre());
+                }
+                return property;
+            });
         
         tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                     empleadoSeleccionado = newValue;

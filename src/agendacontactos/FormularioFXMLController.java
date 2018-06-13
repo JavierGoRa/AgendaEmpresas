@@ -117,6 +117,9 @@ public class FormularioFXMLController implements Initializable {
                 return null;
             }
         });
+        if (empleado.getIddepartamento()!= null) {
+            comboBoxDepartamento.setValue(empleado.getIddepartamento());
+        }
     }
     
     @Override
